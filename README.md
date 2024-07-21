@@ -1,20 +1,29 @@
 # Monitoring System with Grafana and Prometheus
 
-## Installation
+## Installation and Configuration
 
-1. Install Docker and Docker-Compose.
-2. Clone this repository.
-3. Navigate to the project directory.
+### Prerequisites
+- Docker
+- Docker-Compose
 
-## Configuration
+### Setup
+1. Clone the repository.
+2. Navigate to the project directory.
+3. Run `docker-compose up` to start Prometheus, Grafana, and the Node.js application.
+4. Access Grafana at `http://localhost:3000` and configure Prometheus as a data source:
+   - Navigate to **Configuration > Data Sources > Add data source**.
+   - Select Prometheus and set the URL to `http://prometheus:9090`.
+5. Create dashboards in Grafana to visualize metrics.
 
-1. Start services:
-    ```sh
-    docker-compose up
-    ```
-2. Access Grafana at `http://localhost:3000`.
-3. Access Prometheus at `http://localhost:9090`.
+## Exposing Metrics
+The Node.js service exposes metrics at `/metrics`.
 
-## Node.js Application
+### Example Endpoints
+- `GET /todos` - Retrieve a list of todos.
+- `GET /metrics` - Expose Prometheus metrics.
 
-- Exposes metrics at `/metrics` endpoint.
+## Repository Structure
+- `index.js` - Main Node.js application file.
+- `Dockerfile` - Dockerfile for building the Node.js application.
+- `docker-compose.yml` - Docker Compose configuration.
+- `prometheus.yml` - Prometheus configuration file.
