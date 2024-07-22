@@ -1,4 +1,5 @@
-version: '3'
+version: '3.7'
+
 services:
   prometheus:
     image: prom/prometheus
@@ -6,15 +7,22 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
+
+  node-exporter:
+    image: prom/node-exporter
+    ports:
+      - "9100:9100"
+
+  node-app:
+    build: ./node-app
+    ports:
+      - "3000:3000"
+
   grafana:
     image: grafana/grafana
     ports:
-      - "3000:3000"
+      - "3001:3000" # Changed to avoid port conflict
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
-  node_app:
-    build: .
-    ports:
-      - "3000:3000"
     depends_on:
       - prometheus
